@@ -3,7 +3,7 @@
   <dontWrapJar>false</dontWrapJar>
   <headerType>gui</headerType>
   <jar>C:\Users\hetro\OneDrive\Documents\NetBeansProjects\Sudoku\dist\Sudoku.jar</jar>
-  <outfile>C:\Users\hetro\OneDrive\Documents\NetBeansProjects\Sudoku\Sudoku.exe</outfile>
+  <outfile>Sudoku.exe</outfile>
   <errTitle></errTitle>
   <cmdLine></cmdLine>
   <chdir>.</chdir>
@@ -13,7 +13,7 @@
   <stayAlive>false</stayAlive>
   <restartOnCrash>false</restartOnCrash>
   <manifest></manifest>
-  <icon>C:\Users\hetro\Downloads\2.ico</icon>
+  <icon>C:\Users\hetro\Downloads\2-removebg-preview.ico</icon>
   <jre>
     <path>C:\Program Files\Java\jdk-17.0.4</path>
     <requiresJdk>true</requiresJdk>

@@ -1,6 +1,7 @@
 package sudoku;
 
 import java.awt.Color;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -9,8 +10,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 public class MainSudoku extends javax.swing.JFrame {
 
@@ -26,6 +27,9 @@ public class MainSudoku extends javax.swing.JFrame {
 
     public MainSudoku() {
         initComponents();
+        
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("2-removebg-preview.png")));
+        
         LifeLine=Integer.parseInt(lifeline.getText());
 
         // Generate the Sudoku solution
@@ -74,8 +78,16 @@ public class MainSudoku extends javax.swing.JFrame {
                 updateButtonValues();
 
                 if (isSolved()) {
-                    // Show an alert indicating puzzle solved
-                    JOptionPane.showMessageDialog(MainSudoku.this, "Congratulations! Puzzle solved!", "Alert", JOptionPane.INFORMATION_MESSAGE);
+                    congrats c =  new congrats();
+                    c.setVisible(true);
+                    Timer timer = new Timer(3000,(s) -> {
+                          dispose();
+                          StartGame m = new StartGame();
+                          m.setVisible(true);
+                          dispose();
+                    });
+                    timer.setRepeats(false); 
+                    timer.start();
                 }
             } else {
                 // Show an alert indicating invalid assignment
@@ -83,7 +95,7 @@ public class MainSudoku extends javax.swing.JFrame {
                 LifeLine--;
 
                 if (LifeLine == -1) {
-                    JOptionPane.showMessageDialog(MainSudoku.this, "Sorry Your Life line is Over Game Over!", "Alert", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(MainSudoku.this, "Game Over!", "Alert", JOptionPane.WARNING_MESSAGE);
                     StartGame s = new StartGame();
                     s.setVisible(true);
                     dispose();
@@ -163,7 +175,7 @@ private boolean isValidInSubgrid(int row, int col, int num) {
         }
         Collections.shuffle(indexes);
         
-        for (int i = 0; i < numInitialNumbers; i++) {
+        for (int i = 0; i < 80; i++) {
             int index = indexes.get(i);
             int row = index / 9;
             int col = index % 9;
@@ -267,6 +279,7 @@ private boolean isValidInSubgrid(int row, int col, int num) {
         jButton4 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         lifeline = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(700, 600));
@@ -388,6 +401,15 @@ private boolean isValidInSubgrid(int row, int col, int num) {
         jPanel1.add(lifeline);
         lifeline.setBounds(60, 210, 60, 60);
 
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sudoku/back.png"))); // NOI18N
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(0, 10, 160, 60);
+
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 700, 600);
 
@@ -439,6 +461,12 @@ private boolean isValidInSubgrid(int row, int col, int num) {
         selectedNumber = Integer.parseInt(jButton4.getText());        // TODO add your handling code here:
     }//GEN-LAST:event_jButton4MouseClicked
 
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        StartGame s = new StartGame();
+        s.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jLabel2MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -483,6 +511,7 @@ private boolean isValidInSubgrid(int row, int col, int num) {
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

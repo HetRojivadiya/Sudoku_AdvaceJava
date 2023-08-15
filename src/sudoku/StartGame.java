@@ -5,7 +5,13 @@
 package sudoku;
 
 import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.Timer;
 
 /**
  *
@@ -18,7 +24,12 @@ public class StartGame extends javax.swing.JFrame {
      */
     public StartGame() {
         initComponents();
-        
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("2-removebg-preview.png")));
+    }
+
+    void gif() {
+        ImageIcon gifIcon = new ImageIcon("C:\\Users\\hetro\\OneDrive\\Documents\\NetBeansProjects\\Sudoku\\src\\sudoku\\infinity-loading-5483026-45841-unscreen (2).gif");
+        gifLabel.setIcon(gifIcon);
     }
 
     /**
@@ -31,6 +42,7 @@ public class StartGame extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        gifLabel = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -38,10 +50,11 @@ public class StartGame extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(700, 600));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(null);
+        jPanel1.add(gifLabel);
+        gifLabel.setBounds(500, 350, 130, 70);
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setOpaque(true);
@@ -93,12 +106,38 @@ public class StartGame extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    private boolean mainSudokuCreated = false;
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        gif();
+        if (!mainSudokuCreated) {
+            mainSudokuCreated = true;
+            MainSudoku m = new MainSudoku();
+            Timer timer = new Timer(1500, (e) -> {
+                // This code will run after 1.5 seconds
+                m.setVisible(true);
+                dispose();
+            });
+            timer.setRepeats(false); 
+            timer.start();
+        }
+        
+        /*
+        You can achieve this by using the SwingUtilities.invokeLater method to run code on the
+        Event Dispatch Thread (EDT) after the components have finished loading.
+        
+        This way, you don't need to use a sleep
+        or timer to wait for components to load. The EDT itself takes care of handling events and updates in a responsive manner.
+        
+        EDT => event dispatch thread
+        
+        SwingUtilities.invokeLater(() -> {
         MainSudoku m = new MainSudoku();
         m.setVisible(true);
-        dispose();// TODO add your handling code here:
+        dispose();
+        });
+        */
     }//GEN-LAST:event_jButton1MouseClicked
+
 
     /**
      * @param args the command line arguments
@@ -136,6 +175,7 @@ public class StartGame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel gifLabel;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
